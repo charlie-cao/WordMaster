@@ -8,7 +8,8 @@ import {
   LogOut,
   Settings,
   BarChart3,
-  Library
+  Library,
+  Users
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -83,6 +84,12 @@ export function Header({
           </div>
           
           <div className="flex items-center gap-3">
+            <Link href="/invite">
+              <Button variant="outline" className="hover:bg-purple-50 hover:border-purple-300 transition-all duration-300">
+                <Users className="h-4 w-4 mr-1" />
+                邀请
+              </Button>
+            </Link>
             <Link href="/stats">
               <Button variant="outline" className="hover:bg-blue-50 hover:border-blue-300 transition-all duration-300">
                 <BarChart3 className="h-4 w-4 mr-1" />

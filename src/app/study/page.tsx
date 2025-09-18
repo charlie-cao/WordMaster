@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/Header';
+import { ShareCard, shareCardTemplates } from '@/components/ShareCard';
 import { 
   ArrowLeft, 
   Volume2, 
@@ -11,7 +12,9 @@ import {
   CheckCircle, 
   XCircle,
   ArrowRight,
-  BookOpen
+  BookOpen,
+  Share2,
+  Trophy
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -33,6 +36,7 @@ export default function StudyPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showShareModal, setShowShareModal] = useState(false);
   const [studyStats, setStudyStats] = useState({
     correct: 0,
     total: 0
@@ -70,8 +74,16 @@ export default function StudyPage() {
         setCurrentIndex(prev => prev + 1);
         setShowAnswer(false);
       } else {
-        // 学习完成，可以显示结果或重新开始
-        alert(`学习完成！正确率: ${Math.round(((studyStats.correct + (isCorrect ? 1 : 0)) / (studyStats.total + 1)) * 100)}%`);
+        // 学习完成，显示分享成就
+        const finalAccuracy = Math.round(((studyStats.correct + (isCorrect ? 1 : 0)) / (studyStats.total + 1)) * 100);
+        setShowShareModal(true);
+        
+        if (window.toast) {
+          window.toast({
+            message: `学习完成！正确率: ${finalAccuracy}%`,
+            type: 'success'
+          });
+        }
       }
     }, 1500);
   };
@@ -266,6 +278,52 @@ export default function StudyPage() {
           </div>
         </div>
       </div>
+
+      {/* 分享成就模态框 */}
+      {showShareModal && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Trophy className="h-8 w-8 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">学习完成！</h2>
+              <p className="text-gray-600">分享你的学习成果吧</p>
+            </div>
+
+            <ShareCard
+              type="progress"
+              data={{
+                title: '完成单词学习',
+                description: `学习了${words.length}个单词`,
+                value: `${Math.round((studyStats.correct / studyStats.total) * 100)}%`,
+                icon: <Trophy className="h-10 w-10 text-white" />,
+                color: 'bg-blue-600',
+                background: 'bg-gradient-to-br from-blue-50 to-indigo-50'
+              }}
+              onShare={(platform) => {
+                console.log('Shared to:', platform);
+                // 这里可以记录分享行为到数据库
+              }}
+            />
+
+            <div className="flex gap-3 mt-6">
+              <Button
+                onClick={() => setShowShareModal(false)}
+                variant="outline"
+                className="flex-1"
+              >
+                稍后分享
+              </Button>
+              <Link href="/dashboard" className="flex-1">
+                <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                  返回仪表板
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -15,7 +15,8 @@ import {
   Award,
   Play,
   RotateCcw,
-  PlusCircle
+  PlusCircle,
+  Coins
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -45,7 +46,8 @@ export default function DashboardPage() {
     wordsLearned: 125,
     currentStreak: 7,
     studyTime: 45,
-    accuracy: 85
+    accuracy: 85,
+    points: 150
   };
 
   return (
@@ -61,7 +63,7 @@ export default function DashboardPage() {
 
       <div className="relative z-10 container mx-auto px-4 py-8">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           <StatsCard
             title="已学单词"
             value={mockUserStats.wordsLearned}
@@ -89,6 +91,14 @@ export default function DashboardPage() {
             color="orange"
             suffix="%"
           />
+          <Link href="/points">
+            <StatsCard
+              title="我的积分"
+              value={mockUserStats.points}
+              icon={<Coins className="h-6 w-6" />}
+              color="purple"
+            />
+          </Link>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -119,12 +129,14 @@ export default function DashboardPage() {
                     icon={<RotateCcw className="h-8 w-8 text-green-600" />}
                     onClick={() => console.log('Review clicked')}
                   />
-                  <QuickActionCard
-                    title="测验挑战"
-                    description="测试你的掌握度"
-                    icon={<Award className="h-8 w-8 text-purple-600" />}
-                    onClick={() => console.log('Quiz clicked')}
-                  />
+                  <Link href="/invite">
+                    <QuickActionCard
+                      title="邀请好友"
+                      description="分享学习，获得奖励"
+                      icon={<Award className="h-8 w-8 text-purple-600" />}
+                      onClick={() => {}}
+                    />
+                  </Link>
                 </div>
               </CardContent>
             </Card>

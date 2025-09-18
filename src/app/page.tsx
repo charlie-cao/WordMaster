@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, BookOpen, Brain, Target, TrendingUp } from 'lucide-react';
+import { ArrowRight, BookOpen, Brain, Target, TrendingUp, Users } from 'lucide-react';
 
 export default function HomePage() {
   return (
@@ -111,9 +111,9 @@ export default function HomePage() {
               <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <BookOpen className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-4xl font-bold text-blue-600 mb-2">15+</h3>
+              <h3 className="text-4xl font-bold text-blue-600 mb-2">43+</h3>
               <p className="text-gray-700 font-medium">精选单词</p>
-              <p className="text-sm text-gray-600 mt-1">持续更新中</p>
+              <p className="text-sm text-gray-600 mt-1">5个专业单词本</p>
             </div>
             <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 border border-green-200 hover:shadow-lg transition-all duration-300">
               <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -135,6 +135,72 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 用户评价 */}
+      <section className="relative z-10 py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">用户真实反馈</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">看看其他学习者是怎么说的</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 shadow-lg">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                  李
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900">李同学</div>
+                  <div className="text-sm text-gray-600">大三学生</div>
+                </div>
+              </div>
+              <p className="text-gray-700 italic">
+                "用了WordMaster两个月，四级词汇量提升了很多！科学的复习算法真的很有效，不会像以前那样背了就忘。"
+              </p>
+              <div className="flex text-yellow-400 mt-4">
+                ⭐⭐⭐⭐⭐
+              </div>
+            </div>
+
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 shadow-lg">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold">
+                  王
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900">王女士</div>
+                  <div className="text-sm text-gray-600">职场白领</div>
+                </div>
+              </div>
+              <p className="text-gray-700 italic">
+                "界面设计很漂亮，学习过程很有成就感。每天利用碎片时间学习，英语水平确实在稳步提升。"
+              </p>
+              <div className="flex text-yellow-400 mt-4">
+                ⭐⭐⭐⭐⭐
+              </div>
+            </div>
+
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-200 shadow-lg">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                  张
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900">张老师</div>
+                  <div className="text-sm text-gray-600">英语教师</div>
+                </div>
+              </div>
+              <p className="text-gray-700 italic">
+                "作为英语老师，我很认可WordMaster的学习理念。基于遗忘曲线的复习机制很科学，推荐给我的学生们。"
+              </p>
+              <div className="flex text-yellow-400 mt-4">
+                ⭐⭐⭐⭐⭐
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="relative z-10 py-20">
         <div className="container mx-auto px-4 text-center">
@@ -145,13 +211,22 @@ export default function HomePage() {
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
               加入我们，体验科学高效的单词学习方法
             </p>
-            <Link
-              href="/auth/register"
-              className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-xl hover:bg-gray-50 transition-all duration-300 font-semibold text-lg transform hover:-translate-y-0.5 hover:shadow-lg"
-            >
-              免费开始学习
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/auth/register"
+                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-xl hover:bg-gray-50 transition-all duration-300 font-semibold text-lg transform hover:-translate-y-0.5 hover:shadow-lg"
+              >
+                免费开始学习
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+              <Link
+                href="/invite"
+                className="inline-flex items-center px-8 py-4 bg-white/20 text-white border-2 border-white/30 rounded-xl hover:bg-white/30 transition-all duration-300 font-semibold text-lg transform hover:-translate-y-0.5"
+              >
+                邀请好友一起学习
+                <Users className="ml-2 h-5 w-5" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

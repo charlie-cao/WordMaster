@@ -43,4 +43,7 @@ export const COLLECTIONS = {
   STUDY_SESSIONS: 'studySessions',
   WORD_SETS: 'wordSets',
   ACHIEVEMENTS: 'achievements',
+  REFERRALS: 'referrals',
+  USER_POINTS: 'userPoints',
+  SHARES: 'shares',
 } as const;
