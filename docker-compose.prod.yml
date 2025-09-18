@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: wordmaster-mongodb-prod
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD:-password123}
+      MONGO_INITDB_DATABASE: ${DATABASE_NAME:-wordmaster}
+    volumes:
+      - mongodb_data_prod:/data/db
+    networks:
+      - wordmaster-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wordmaster-app-prod
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: mongodb://${MONGODB_USERNAME:-admin}:${MONGODB_PASSWORD:-password123}@mongodb:27017/${DATABASE_NAME:-wordmaster}?authSource=admin
+      DATABASE_NAME: ${DATABASE_NAME:-wordmaster}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-your-secret-key-here}
+      JWT_SECRET: ${JWT_SECRET:-your-jwt-secret-here}
+    depends_on:
+      - mongodb
+    networks:
+      - wordmaster-network
+
+volumes:
+  mongodb_data_prod:
+    driver: local
+
+networks:
+  wordmaster-network:
+    driver: bridge
